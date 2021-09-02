@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const path = require("path");
 const dotenv = require("dotenv");
 
 const HttpError = require("./models/http-error");
@@ -21,7 +20,7 @@ app.use(express.json());
 dotenv.config();
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", process.env.ACCESS);
   res.setHeader(
     "Access-Control-Allow-Methods",
     "OPTIONS, GET, POST, PUT, PATCH, DELETE"
@@ -33,9 +32,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", (req, res) => {
-  res.send("Hello from the Backend");
-});
+// app.use("/", (req, res) => {
+//   res.send("Hello from the Backend");
+// });
 
 app.use("/api/main", mainRoutes);
 
